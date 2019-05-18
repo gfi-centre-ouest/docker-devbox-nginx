@@ -1,0 +1,23 @@
+version: '2.2'
+
+services:
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - default
+      - reverse-proxy
+    restart: '${DOCKER_DEVBOX_RESTART_POLICY}'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ${COMPOSE_PROJECT_DIR}/my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
+      - ${COMPOSE_PROJECT_DIR}/vhost.d:/etc/nginx/vhost.d:ro
+      - ${COMPOSE_PROJECT_DIR}/dhparam:/etc/nginx/dhparam
+      - ${DOCKER_DEVBOX_CERTS_PATH}:/etc/nginx/certs
+networks:
+  reverse-proxy:
+    external: true
+    name: ${DOCKER_DEVBOX_REVERSE_PROXY_NETWORK}
