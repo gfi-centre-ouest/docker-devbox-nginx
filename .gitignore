@@ -2,11 +2,12 @@
 /.docker/.ca-certificates
 /.docker-compose.env
 /.docker/*/Dockerfile
+/.docker/fixuid.tar.gz
 /.init/
 /.bash_enter.env
 /.bin/jq
 /.bin/cfssl-cli
 /.bin/mkcert
-/.traefik/\[domain\].ssl.toml
+/.traefik/*.ssl.toml
 /.certs
 /my_proxy.conf
